@@ -18,23 +18,27 @@ class CalcTransformer(Transformer):  # pylint: disable=too-few-public-methods
 
     @staticmethod
     def _add(args):
-        return float(args[0]) + float(args[1])
+        return args[0] + args[1]
 
     @staticmethod
     def _sub(args):
-        return float(args[0]) - float(args[1])
+        return args[0] - args[1]
 
     @staticmethod
     def _mul(args):
-        return float(args[0]) * float(args[1])
+        return args[0] * args[1]
 
     @staticmethod
     def _div(args):
-        return float(args[0]) / float(args[1])
+        return args[0] / args[1]
 
     @staticmethod
     def _negate(args):
         return -args[0]
+
+    @staticmethod
+    def _exp(args):
+        return args[0] ** args[1]
 
 
 parser = Lark.open("grammar.lark", parser="lalr", transformer=CalcTransformer)
