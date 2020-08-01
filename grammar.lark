@@ -8,7 +8,7 @@
 				| power
 ?power			: expr "^" expr	-> _exp
 				| atom
-?atom			: "(" atom ")"
+?atom			: "(" expr ")"
 				| NUMBER		-> _num
 				| "-" expr		-> _negate
 
