@@ -2,6 +2,7 @@
 """This module contains the math bot, which evaluates mathematical
 expressions."""
 
+import math
 import discord
 from lark import Lark, Transformer
 
@@ -38,7 +39,25 @@ class CalcTransformer(Transformer):  # pylint: disable=too-few-public-methods
 
     @staticmethod
     def _exp(args):
-        return args[0] ** args[1]
+        return args[0]**args[1]
+
+    @staticmethod
+    def _func_call(args):
+        def unknown_func(_):
+            raise NameError(f"Function {args[0]}() does not exist")
+
+        return {
+            "sqrt": math.sqrt,
+            "sin": math.sin,
+            "cos": math.cos,
+            "tan": math.tan,
+            "asin": math.asin,
+            "acos": math.acos,
+            "atan": math.atan,
+            "log": math.log10,
+            "ln": math.log,
+            "abs": abs,
+        }.get(args[0], unknown_func)(args[1])
 
 
 parser = Lark.open("grammar.lark", parser="lalr", transformer=CalcTransformer)
