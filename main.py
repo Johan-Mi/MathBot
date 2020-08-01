@@ -56,12 +56,12 @@ async def on_message(message):
         expr = message.content[len(PREFIX):]
 
         try:
-            result = str(parser.parse(expr))
-            await message.channel.send(f"{expr} = {result}")
+            result = f"{expr} = {parser.parse(expr)}"
         except ZeroDivisionError:
-            await message.channel.send("Tried to divide by zero!")
+            result = "Tried to divide by zero!"
         except:
-            await message.channel.send("Syntax error!")
+            result = "Syntax error!"
+        await message.channel.send(result)
 
 
 def main():
